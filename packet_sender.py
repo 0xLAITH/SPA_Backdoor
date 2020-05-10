@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from scapy.all import *
+from Crypto.Random import get_random_bytes
 import sys
 import os
 import subprocess
@@ -14,7 +15,6 @@ port = sys.argv[2]
 secret = sys.argv[3]
 ip_dest = sys.argv[4]
 port_dest = sys.argv[5]
-
 iv = get_random_bytes(16)
 plaintext = ";"+epoch_time+";"+ip+";"+port+";"
 
@@ -27,5 +27,5 @@ print("Payload in plaintext:\n" + plaintext)
 print("Payload sent in ciphertext:\n" + encrypted)
 print("Payload length (bytes): " + str(len(encrypted)))
 
-send(IP(dst=ip_dest)/TCP(dport=port_dest, flags='S')/encrypted)
+send(IP(dst=ip_dest)/TCP(dport=int(port_dest), flags='S')/encrypted)
 
