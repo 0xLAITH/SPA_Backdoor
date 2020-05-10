@@ -7,7 +7,7 @@ import os
 import subprocess
 
 if (len(sys.argv) != 6):
-	sys.exit("Usage: "+sys.argv[0]+" [ip] [port] [secret] [ip_destination] [port_destination]")
+	sys.exit("Usage: "+sys.argv[0]+" [shell_destination_ip] [shell_destination_port] [secret] [host_ip] [host_port]")
 
 
 epoch_time = str(int(time.time()))
