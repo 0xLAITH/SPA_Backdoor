@@ -6,14 +6,17 @@ import sys
 import os
 import subprocess
 
-if (len(sys.argv) != 4):
-	sys.exit("Usage: "+sys.argv[0]+" [ip] [port] [secret]")
+if (len(sys.argv) != 6):
+	sys.exit("Usage: "+sys.argv[0]+" [ip] [port] [secret] [ip_destination] [port_destination]")
 
 
 epoch_time = str(int(time.time()))
 ip = sys.argv[1]
 port = sys.argv[2]
 secret = sys.argv[3]
+ip_dest = sys.argv[4]
+port_dest = sys.argv[5]
+
 iv = get_random_bytes(16)
 plaintext = ";"+epoch_time+";"+ip+";"+port+";"
 
@@ -26,5 +29,5 @@ print("Payload in plaintext:\n" + plaintext)
 print("Payload sent in ciphertext:\n" + encrypted)
 print("Payload length (bytes): " + str(len(encrypted)))
 
-send(IP(dst="10.50.66.69")/TCP(dport=8888, flags='S')/encrypted)
+send(IP(dst=ip_dest)/TCP(dport=port_dest, flags='S')/encrypted)
 
